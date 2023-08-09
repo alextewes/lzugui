@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import {StyledApp, StyledNav, StyledLink, StyledHeader} from './styledComponents';
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+import {StyledApp, StyledNav, StyledLink, StyledHeader, StyledLinkHeader} from './styledComponents';
 
 import DeployComponent from './components/DeployComponent';
 import StartComponent from './components/StartComponent';
@@ -9,14 +9,18 @@ import StatusComponent from './components/StatusComponent';
 import RemoveComponent from './components/RemoveComponent';
 import SaveStateComponent from './components/SaveStateComponent';
 import LoadStateComponent from './components/LoadStateComponent';
+import Home from "./Home";
 
 function App() {
     return (
         <StyledApp>
-            <StyledHeader>
-                Component Assembler
-            </StyledHeader>
+
             <Router>
+                <StyledLinkHeader to="/home">
+                    <StyledHeader>
+                        Component Assembler
+                    </StyledHeader>
+                </StyledLinkHeader>
                 <StyledNav>
                     <StyledLink to="/deploy">Deploy</StyledLink>
                     <StyledLink to="/remove">Remove</StyledLink>
@@ -28,6 +32,8 @@ function App() {
                 </StyledNav>
 
                 <Routes>
+                    <Route path="/" element={<Navigate to="/home" />} />
+                    <Route path="/home" element={<Home />} />
                     <Route path="/deploy" element={<DeployComponent />} />
                     <Route path="/start" element={<StartComponent />} />
                     <Route path="/stop" element={<StopComponent />} />
@@ -36,6 +42,7 @@ function App() {
                     <Route path="/save-state" element={<SaveStateComponent />} />
                     <Route path="/load-state" element={<LoadStateComponent />} />
                 </Routes>
+
             </Router>
         </StyledApp>
     );
