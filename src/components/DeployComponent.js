@@ -1,29 +1,63 @@
-// DeployComponent.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { StyledForm, StyledLabel, StyledInput, StyledButton } from '../styledComponents';
+import { StyledForm, StyledLabel, StyledInput, StyledButton, StyledMessage } from '../styledComponents';
 
 function DeployComponent() {
+    const [message, setMessage] = useState('');
     const formik = useFormik({
         initialValues: {
             componentJarPath: '',
             componentName: '',
         },
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            fetch('http://localhost:8080/api/components/deploy', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(values),
+            })
+                .then(response => {
+                    // Make sure the request was successful
+                    if(response.ok) {
+                        setMessage('Component deployed successfully');
+                    } else {
+                        throw new Error('Error deploying component');
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    setMessage('Error deploying component');
+                });
         },
     });
 
     return (
-        <StyledForm onSubmit={formik.handleSubmit}>
-            <StyledLabel htmlFor="componentJarPath">Component JAR Path</StyledLabel>
-            <StyledInput id="componentJarPath" name="componentJarPath" type="text" onChange={formik.handleChange} value={formik.values.componentJarPath} />
+        <div>
+            <StyledForm onSubmit={formik.handleSubmit}>
+                <StyledLabel htmlFor="componentJarPath">Component JAR Path</StyledLabel>
+                <StyledInput
+                    id="componentJarPath"
+                    name="componentJarPath"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.componentJarPath}
+                />
 
-            <StyledLabel htmlFor="componentName">Component Name</StyledLabel>
-            <StyledInput id="componentName" name="componentName" type="text" onChange={formik.handleChange} value={formik.values.componentName} />
+                <StyledLabel htmlFor="componentName">Component Name</StyledLabel>
+                <StyledInput
+                    id="componentName"
+                    name="componentName"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.componentName}
+                />
 
-            <StyledButton type="submit">Deploy</StyledButton>
-        </StyledForm>
+                <StyledButton type="submit">Deploy</StyledButton>
+            </StyledForm>
+
+            {message && <StyledMessage>{message}</StyledMessage>}
+        </div>
     );
 }
 
