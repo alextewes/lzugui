@@ -8,6 +8,10 @@ export const StyledHeader = styled.h1`
   padding: 10px;
   background-color: #007BFF;
   color: white;
+
+  &:hover {
+    color: lightskyblue;
+  }
 `;
 export const StyledApp = styled.div`
   font-family: Arial, sans-serif;
@@ -64,7 +68,7 @@ export const StyledButton = styled.button`
 `;
 
 export const StyledTable = styled.table`
-  width: 100%;
+  width: 95%;
   max-width: 800px;
   margin: 10px auto;
   border-collapse: collapse;
@@ -86,4 +90,23 @@ export const StyledTableRow = styled.tr`
   &:nth-child(even) {
     background-color: #f2f2f2;
   }
+`;
+
+export const StyledMessage = styled.p`
+  color: green;
+  font-size: 1.2em;
+  text-align: center;
+  margin-top: 20px;
+`;
+
+export const StyledText = styled.p`
+  color: #007BFF;
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 20px;
+`;
+
+export const StyledLinkHeader = styled(Link)`
+  text-decoration: none;
+  color: white;
 `;
