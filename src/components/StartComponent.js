@@ -16,7 +16,7 @@ function StartComponent() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    componentId: Number(values.componentId),
+                    componentId: values.componentId,
                 }),
             })
                 .then(response => {
