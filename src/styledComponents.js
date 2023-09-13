@@ -42,6 +42,13 @@ export const StyledForm = styled.form`
   margin: 0 auto;
 `;
 
+export const StyledCenterDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+`;
+
 export const StyledLabel = styled.label`
   margin: 10px;
 `;
