@@ -18,9 +18,8 @@ function DeployComponent() {
                 body: JSON.stringify(values),
             })
                 .then(response => {
-                    // Make sure the request was successful
                     if(response.ok) {
-                        setMessage('Component deployed successfully');
+                        setMessage(`Component with name "${values.componentName}" deployed successfully`);
                     } else {
                         throw new Error('Error deploying component');
                     }

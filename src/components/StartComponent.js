@@ -23,7 +23,7 @@ function StartComponent() {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    return response.json(); // Use response.text() instead of response.json()
+                    return response.json();
                 })
                 .then(data => {
                     setMessage(data.message);
