@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import { StyledForm, StyledButton, StyledMessage } from '../styledComponents';
+import { StyledForm, StyledLabel, StyledInput, StyledButton, StyledMessage } from '../styledComponents';
 
 function LoadStateComponent() {
     const [message, setMessage] = useState(null);
 
     const formik = useFormik({
-        initialValues: {},
-        onSubmit: () => {
+        initialValues: { filename: 'state.json' },
+        onSubmit: (values) => {
             fetch('http://localhost:8080/api/components/load-state', {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(values),
             })
                 .then(response => {
                     if (!response.ok) {
@@ -29,8 +33,15 @@ function LoadStateComponent() {
 
     return (
         <StyledForm onSubmit={formik.handleSubmit}>
+            <StyledLabel htmlFor="filename">Filename</StyledLabel>
+            <StyledInput
+                id="filename"
+                name="filename"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.filename}
+            />
             <StyledButton type="submit">Load State</StyledButton>
-
             {message && <StyledMessage>{message}</StyledMessage>}
         </StyledForm>
     );
