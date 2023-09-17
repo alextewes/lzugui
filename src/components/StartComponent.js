@@ -7,7 +7,7 @@ function StartComponent() {
 
     const formik = useFormik({
         initialValues: {
-            componentId: '',
+            componentName: '',
         },
         onSubmit: values => {
             fetch('http://localhost:8080/api/components/start', {
@@ -16,7 +16,7 @@ function StartComponent() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    componentId: values.componentId,
+                    componentName: values.componentName,
                 }),
             })
                 .then(response => {
@@ -37,8 +37,9 @@ function StartComponent() {
 
     return (
         <StyledForm onSubmit={formik.handleSubmit}>
-            <StyledLabel htmlFor="componentId">Component ID</StyledLabel>
-            <StyledInput id="componentId" name="componentId" type="text" onChange={formik.handleChange} value={formik.values.componentId} />
+
+            <StyledLabel htmlFor="componentName">Component Name</StyledLabel>
+            <StyledInput id="componentName" name="componentName" type="text" onChange={formik.handleChange} value={formik.values.componentName} />
 
             <StyledButton type="submit">Start</StyledButton>
 

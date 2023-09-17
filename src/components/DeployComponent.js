@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { StyledForm, StyledLabel, StyledInput, StyledButton, StyledMessage } from '../styledComponents';
-
 function DeployComponent() {
     const [message, setMessage] = useState('');
     const formik = useFormik({
         initialValues: {
             componentJarPath: '',
             componentName: '',
+            instanceCount: '',
         },
         onSubmit: values => {
             fetch('http://localhost:8080/api/components/deploy', {
@@ -19,7 +19,7 @@ function DeployComponent() {
             })
                 .then(response => {
                     if(response.ok) {
-                        setMessage(`Component with name "${values.componentName}" deployed successfully`);
+                        setMessage(`${values.instanceCount} Component(s) with name "${values.componentName}" deployed successfully`);
                     } else {
                         throw new Error('Error deploying component');
                     }
@@ -52,6 +52,15 @@ function DeployComponent() {
                     value={formik.values.componentName}
                 />
 
+                <StyledLabel htmlFor="instanceCount">Instance Count</StyledLabel> {/* New input for instanceCount */}
+                <StyledInput
+                    id="instanceCount"
+                    name="instanceCount"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.instanceCount}
+                />
+
                 <StyledButton type="submit">Deploy</StyledButton>
             </StyledForm>
 
@@ -61,3 +70,4 @@ function DeployComponent() {
 }
 
 export default DeployComponent;
+
