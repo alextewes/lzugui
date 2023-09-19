@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# LZU GUI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Web-UI written in React for the OOKA LZU. [https://github.com/alextewes/ooka-lzu](https://github.com/alextewes/ooka-lzu)
 
 ## Available Scripts
 
